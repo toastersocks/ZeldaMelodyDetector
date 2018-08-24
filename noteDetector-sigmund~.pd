@@ -1,0 +1,69 @@
+#N canvas 9 39 582 678 10;
+#X obj 98 35 *~;
+#X obj 77 -63 adc~ 1;
+#X obj 201 -156 vsl 15 128 0 10 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 110 1;
+#X floatatom 220 -6 5 0 0 0 - - -;
+#X floatatom 77 149 5 0 0 0 - - -;
+#X floatatom 370 219 5 0 0 0 - - -;
+#X obj 312 192 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X floatatom 200 293 5 0 0 0 - - -;
+#X floatatom 144 292 5 0 0 0 - - -;
+#X symbolatom 245 292 10 0 0 0 - - -;
+#X obj 165 248 miditonote;
+#X obj 280 219 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X text 264 309 note;
+#X text 195 306 octave;
+#X text 126 308 note class;
+#X obj -7 267 comport \$1 9600;
+#X msg -98 242 devices;
+#X msg -7 219 3;
+#X msg 24 219 0;
+#X msg -46 243 close;
+#X msg -7 243 open \$1;
+#X obj -83 -126 loadbang;
+#X obj -83 -102 delay 100;
+#X msg -83 -78 \; pd dsp 1;
+#X obj 198 -237 loadbang;
+#X msg 197 -209 3;
+#X msg 196 -272 bang;
+#X obj -84 148 receive serialport;
+#X text -105 -44 (This is to avoid 'resource busy' error when loading
+from commandline with no GUI);
+#X text 278 -221 default mic level;
+#X text -96 51 (This receives the open message from the command line
+using the "-send" flag so the right serial port can be opened dynamically
+e.g. "pd -nogui -open patch.pd -send "serialport open 0" ");
+#X text 341 245 output frequency on note detection;
+#X text 38 170 output continuous frequency. Just because;
+#X msg -79 342 \; pd dsp 1;
+#X msg 31 342 \; pd dsp 0;
+#X obj 83 98 sigmund~ -maxfreq 4000 -stabletime 100 pitch notes;
+#X connect 0 0 35 0;
+#X connect 1 0 0 0;
+#X connect 2 0 0 1;
+#X connect 2 0 3 0;
+#X connect 10 0 8 0;
+#X connect 10 1 7 0;
+#X connect 10 2 9 0;
+#X connect 10 2 11 0;
+#X connect 16 0 15 0;
+#X connect 17 0 20 0;
+#X connect 17 0 33 0;
+#X connect 18 0 20 0;
+#X connect 19 0 15 0;
+#X connect 19 0 34 0;
+#X connect 20 0 15 0;
+#X connect 21 0 22 0;
+#X connect 22 0 23 0;
+#X connect 24 0 25 0;
+#X connect 25 0 2 0;
+#X connect 26 0 24 0;
+#X connect 27 0 15 0;
+#X connect 35 0 4 0;
+#X connect 35 1 5 0;
+#X connect 35 1 6 0;
+#X connect 35 1 10 0;
+#X connect 35 1 15 0;
